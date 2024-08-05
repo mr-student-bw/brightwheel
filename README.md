@@ -13,11 +13,6 @@
 - I created a macro (clean_input_fields) to standardize how to clean and format fields.
 - I created a snapshot (lead_sources_snapshot) of the final model so it can be references to analyze changes over time.
 
-Resulting database:
-
-<img width="239" alt="Screen Shot 2024-08-05 at 12 10 02 AM" src="https://github.com/user-attachments/assets/f6ac50c6-1e38-4aff-a989-db24b03d7ded">
-
-
 #### Database datasets (aka "schemas" in other databases)
 
 - dataset "raw" is intended to be the landing spot for all external data. This is where I loaded the files provided.
@@ -31,19 +26,23 @@ Resulting database:
     - snapshot model: lead_sources_snapshot
 - datasets starting with "dev_" are for work in development
 
+Resulting database:
+
+<img width="239" alt="Screen Shot 2024-08-05 at 12 10 02 AM" src="https://github.com/user-attachments/assets/f6ac50c6-1e38-4aff-a989-db24b03d7ded">
+
+
 ### Notes
 
 - I only materialized the final resulting dataset, `lead_sources`, the rest I left as views. But could be materialized depending on needs. Output available in lead_sources tab in [this gsheet]([url](https://docs.google.com/spreadsheets/d/1v9YlpdbA2ZPuE-ZbLYDN2yrxnwBhEBvAQlXD-YDVAPA/edit?gid=963321327#gid=963321327))
-- To show how the snapshot worked, I edited the last 2 leads in source1 and added a lead to the same file. Input files with changes highlighted in yellow and the output table lead_sources_snapshot availabe in the same GSheet.
-- For time constraints, I did not load source3, but it would follow the same pattern as source1 and source2.
+- To show how the snapshot works, I edited the last 2 leads in source1 and added a lead to the same file. Input files with changes highlighted in yellow and the output table lead_sources_snapshot availabe in the same GSheet.
 - I built a couple basic tests on the field I created that I think should be unique.
 
 ### With more time and context
 
 - I would have liked to more thoroughly understand where the data came from to think about how to best ingest it. For now I used external tables that feed directly from GSheets to Bigquery, but landing files in S3 or using third party ETL tools like Fivetran could be other alternatives.
 - There is more data cleaning that could have been done and more data could have been extracted for more complete datasets.
+- I would have loaded the 3rd file, shared queries that answer the sample questions, added more comments throughout the code.
 - I would have done more stress testing of the code to make sure it was robust as more data is added to the source files.
-- I would have loaded the 3rd file and shared queries that answer the sample questions.
 - I would have created a dag and scheduled it with airflow.
 
 ### Long term considerations
