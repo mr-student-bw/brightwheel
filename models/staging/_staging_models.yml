@@ -1,0 +1,13 @@
+
+version: 2
+
+models:
+    - name: source1
+      description: "Source1"
+    
+    - name: source2
+      description: "Source2"
+
+    - name: salesforce_leads
+      description: "Salesforce leads"
+      

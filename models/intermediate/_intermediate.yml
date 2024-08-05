@@ -1,0 +1,15 @@
+
+version: 2
+
+models:
+    - name: lead_sources_int
+      description: "combines data across all lead sources"
+      columns:
+        - name: dbt_unique_id
+          tests:
+            - unique
+            - not_null
+
+    - name: salesforce_leads_int
+      description: "Salesforce leads"
+      
