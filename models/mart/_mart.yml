@@ -1,0 +1,12 @@
+version: 2
+
+models:
+    - name: lead_sources
+      description: "combines data across all lead sources and Salesforce"
+      columns:
+        - name: dbt_unique_id
+          tests:
+            - unique
+            - not_null
+      config:
+        materialized: table
