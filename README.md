@@ -13,6 +13,11 @@
 - I created a macro (clean_input_fields) to standardize how to clean and format fields.
 - I created a snapshot (lead_sources_snapshot) of the final model so it can be references to analyze changes over time.
 
+Resulting database:
+
+<img width="239" alt="Screen Shot 2024-08-05 at 12 10 02 AM" src="https://github.com/user-attachments/assets/f6ac50c6-1e38-4aff-a989-db24b03d7ded">
+
+
 #### Database datasets (aka "schemas" in other databases)
 
 - dataset "raw" is intended to be the landing spot for all external data. This is where I loaded the files provided.
@@ -28,7 +33,8 @@
 
 ### Notes
 
-- I only materialized the final resulting dataset, `lead_sources`, the rest I left as views. But could be materialized depending on needs.
+- I only materialized the final resulting dataset, `lead_sources`, the rest I left as views. But could be materialized depending on needs. Output available in lead_sources tab in [this gsheet]([url](https://docs.google.com/spreadsheets/d/1v9YlpdbA2ZPuE-ZbLYDN2yrxnwBhEBvAQlXD-YDVAPA/edit?gid=963321327#gid=963321327))
+- To show how the snapshot worked, I edited the last 2 leads in source1 and added a lead to the same file. Input files with changes highlighted in yellow and the output table lead_sources_snapshot availabe in the same GSheet.
 - For time constraints, I did not load source3, but it would follow the same pattern as source1 and source2.
 - I built a couple basic tests on the field I created that I think should be unique.
 
