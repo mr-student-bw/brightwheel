@@ -4,7 +4,6 @@
 
 - I matched the data fields provided to the requirements as best as I could. In reality, I would expect to work closely with the business stakeholder who'd ideally have more context.
 - I assumed that all leads came from one of the source files that start with the text "source". I then assume that when a lead is added to Salesforce, it stays in the source file but also gets a row in salesforce_leads.
--
 
 ### Design details
 
@@ -17,15 +16,15 @@
 #### Database datasets (aka "schemas" in other databases)
 
 - dataset "raw" is intended to be the landing spot for all external data. This is where I loaded the files provided.
-- dataset "staging" is intended to be raw data with some data cleanup, and only the fields that need to be maintained.
+- dataset "prod_staging" is intended to be raw data with some data cleanup, and only the fields that need to be maintained.
   - staging models: source1, source2, salesforce_leads
-- dataset "intermediate" is intended to be for datasets that are unlikely to be needed by the business but may be useful for data qa. Not all models need this step.
+- dataset "prod_intermediate" is intended to be for datasets that are unlikely to be needed by the business but may be useful for data qa. Not all models need this step.
   - itermediate models: lead_sources_int, salesforce_leads_int
-- dataset "mart" is intended to be clean, well-modeled data with business rules and easy to query and leverage in BI tools.
+- dataset "prod_mart" is intended to be clean, well-modeled data with business rules and easy to query and leverage in BI tools.
   - mart model: lead_sources
-- dataset "snapshot" holds snapshots. In this case, I only took a snapshot of the final mart model.
+- dataset "prod_snapshot" holds snapshots. In this case, I only took a snapshot of the final mart model.
     - snapshot model: lead_sources_snapshot
-- dataset "dev" is for work in development
+- datasets starting with "dev_" are for work in development
 
 ### Notes
 
@@ -45,7 +44,7 @@
 
 - The data provided required a lot of cleaning and there was minimal standardization across sources. I would like to work with stakeholders to see if there are ways to standardize upstream.
 - Changing schemas is always difficult to deal with in a traditional data pipeline since that's is usually a breaking change. If it's not feasible to improve data quality and consistency upstream, we could consider building a pipeline that leverages genAI to extract the desired information from each file in a standardized format, without requring the source schemas to remain constant.
-- To significantly scale the number of sources, besides leveraging genAI to handle schema changes and perhaps some data cleanup so the resulting files are standardized, we'd also want to add more macros to the code. Instead of hardcoding union statements, we can use for loops to cycle through all inbound files, for instance, and union them together.
+- To significantly scale the number of sources, besides leveraging genAI to handle schema changes and some data cleanup, we'd also want to add more macros to the code. For example, instead of hardcoding union statements for each of the sources, we can use for loops to cycle through all of them.
 
 
 ### To run the code
